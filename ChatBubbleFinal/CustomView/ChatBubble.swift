@@ -20,8 +20,10 @@ class ChatBubble: UIView {
     // Properties
     var imageViewChat: UIImageView?
     var imageViewBG: UIImageView?
+    var imageDoubleTick: UIImageView?
     var text: String?
     var labelChatText: UILabel?
+    var labelTimeSend: UILabel?
     
     /**
     Initializes a chat bubble view
@@ -42,10 +44,12 @@ class ChatBubble: UIView {
         let padding: CGFloat = 10.0
         
         // 2. Drawing image if any
+        var heightPub:CGFloat=0.0
         if let chatImage = data.image {
             
             let width: CGFloat = min(chatImage.size.width, self.frame.width - 2 * padding)
             let height: CGFloat = chatImage.size.height * (width / chatImage.size.width)
+            heightPub = height
             imageViewChat = UIImageView(frame: CGRect(x: padding, y: padding, width: width, height: height))
             imageViewChat?.image = chatImage
             imageViewChat?.layer.cornerRadius = 5.0
@@ -62,12 +66,26 @@ class ChatBubble: UIView {
                 startY += imageViewChat!.frame.maxY
             }
             labelChatText = UILabel(frame: CGRect(x: startX, y: startY, width: self.frame.width - 2 * startX , height: 5))
-            labelChatText?.textAlignment = data.type == .mine ? .right : .left
+            labelChatText?.textAlignment = data.type == .mine ? .left : .left
             labelChatText?.font = UIFont.systemFont(ofSize: 14)
             labelChatText?.numberOfLines = 0 // Making it multiline
             labelChatText?.text = data.text
             labelChatText?.sizeToFit() // Getting fullsize of it
             self.addSubview(labelChatText!)
+            
+            //set double tick
+            imageDoubleTick = UIImageView(frame: CGRect(x: labelChatText!.frame.width + labelChatText!.frame.minX + padding - 65, y: labelChatText!.frame.maxY + padding/2, width: 15 , height: 15))
+            imageDoubleTick?.image = UIImage(named: "DoubleTick.png")
+            self.addSubview(imageDoubleTick!)
+            
+            // set label time on viewChat
+            labelTimeSend = UILabel(frame: CGRect(x: labelChatText!.frame.width + labelChatText!.frame.minX + padding - 45, y: labelChatText!.frame.maxY + padding/2, width: self.frame.width - 2 * startX , height: 5))
+            labelTimeSend?.textAlignment = data.type == .mine ? .right : .left
+            labelTimeSend?.font = UIFont.systemFont(ofSize: 14)
+            labelTimeSend?.numberOfLines = 0 // Making it multiline
+            labelTimeSend?.text = "10:19"
+            labelTimeSend?.sizeToFit() // Getting fullsize of it
+            self.addSubview(labelTimeSend!)
         }
         // 4. Calculation of new width and height of the chat bubble view
         var viewHeight: CGFloat = 0.0
@@ -75,10 +93,10 @@ class ChatBubble: UIView {
         if let imageView = imageViewChat {
             // Height calculation of the parent view depending upon the image view and text label
             viewWidth = max(imageViewChat!.frame.maxX, labelChatText!.frame.maxX) + padding
-            viewHeight = max(imageViewChat!.frame.maxY, labelChatText!.frame.maxY) + padding
+            viewHeight = max(imageViewChat!.frame.maxY, labelChatText!.frame.maxY) + padding + 20
             
         } else {
-            viewHeight = labelChatText!.frame.maxY + padding/2
+            viewHeight = labelChatText!.frame.maxY + padding/2 + 20
             viewWidth = labelChatText!.frame.width + labelChatText!.frame.minX + padding
         }
         

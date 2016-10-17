@@ -35,13 +35,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         sendButton.isEnabled = false
         
         
-        let chatBubbleData1 = ChatBubbleData(text: "Hey !!!!have a look on that....", image:UIImage(named: "chatImage1.jpg"), date: Date(), type: .mine)
+        let chatBubbleData1 = ChatBubbleData(text: "Hey !!!!have a look on that very good blablablablablablablablablabla", image:UIImage(named: "chatImage1.jpg"), date: Date(), type: .mine)
         addChatBubble(chatBubbleData1)
         
-        let chatBubbleData2 = ChatBubbleData(text: "Nice.... what about this one", image:UIImage(named: "chatImage3.jpg"), date: Date(), type: .opponent)
+        let chatBubbleData2 = ChatBubbleData(text: "Nice.... what about this oneblablablablablablablablablablablablablablablablablablablablablabla", image:UIImage(named: "chatImage3.jpg"), date: Date(), type: .opponent)
         addChatBubble(chatBubbleData2)
         
-        let chatBubbleData3 = ChatBubbleData(text: "Great Bro....!!!", image:nil, date: Date(), type: .mine)
+        let chatBubbleData3 = ChatBubbleData(text: "Great Bro....!blablablablablablablablablablablablablablablablablablablablablablablabla!!", image:nil, date: Date(), type: .mine)
         addChatBubble(chatBubbleData3)
         
         self.messageCointainerScroll.contentSize = CGSize(width: messageCointainerScroll.frame.width, height: lastChatBubbleY + internalPadding)
