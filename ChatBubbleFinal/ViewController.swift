@@ -15,7 +15,12 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     @IBOutlet weak var buttomLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
-    @IBOutlet weak var viewAttachments: UIImageView!
+    @IBOutlet weak var viewAttachments: UIView!
+    
+    // block attachment
+    @IBOutlet weak var blockA1: UIView!
+    @IBOutlet weak var blockA2: UIView!
+    
     
     var selectedImage : UIImage?
     var lastChatBubbleY: CGFloat = 10.0
@@ -23,7 +28,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     var lastMessageType: BubbleDataType?
     
     var imagePicker = UIImagePickerController()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +37,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         imagePicker.allowsEditing = false //2
         imagePicker.sourceType = .photoLibrary //3
         sendButton.isEnabled = false
-        viewAttachments.accessibilityElementsHidden = false
+        viewAttachments.isHidden = true
+//        blockA1.isHidden = true
+//        blockA2.isHidden = true
+        viewAttachments?.backgroundColor = UIColor(hue: 0.9222, saturation: 0.5, brightness: 0.04, alpha: 0.5)
+        
+        //add gesture for action viewAttachments
+        let gesture = UITapGestureRecognizer(target: self, action: "closeAttachment:")
+        viewAttachments.addGestureRecognizer(gesture)
         
         let chatBubbleData1 = ChatBubbleData(text: "Hey !!!", image:UIImage(named: "chatImage1.jpg"), date: Date(), type: .mine)
         addChatBubble(chatBubbleData1)
@@ -46,10 +57,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         self.messageCointainerScroll.contentSize = CGSize(width: messageCointainerScroll.frame.width, height: lastChatBubbleY + internalPadding)
         self.addKeyboardNotifications()
-        
-        /*
-        
-        */
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        moveToLastMessage();
     }
     
     override func didReceiveMemoryWarning() {
@@ -125,6 +136,22 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     func getRandomChatDataType() -> BubbleDataType {
         return BubbleDataType(rawValue: Int(arc4random() % 2))!
     }
+    
+    // function for show view attachments
+    @IBAction func showAttachment(_ sender: AnyObject) {
+        if viewAttachments.isHidden {
+            viewAttachments.isHidden = false
+//            blockA1.isHidden = true
+        } else{
+            viewAttachments.isHidden = true
+        }
+    }
+    // close attachment
+    func closeAttachment(_ sender:ViewController){
+        // do other task
+        viewAttachments.isHidden = true
+    }
+    
 }
 
 

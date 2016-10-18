@@ -203,6 +203,7 @@
 				TargetAttributes = {
 					45F5298D1B9739AE001FA8D1 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 8CRC25RPN6;
 						LastSwiftMigration = 0800;
 					};
 					45F529A21B9739AF001FA8D1 = {
@@ -393,8 +394,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8CRC25RPN6;
 				INFOPLIST_FILE = ChatBubbleFinal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.innofied.chatbubblefinal.koro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -405,8 +408,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8CRC25RPN6;
 				INFOPLIST_FILE = ChatBubbleFinal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.innofied.chatbubblefinal.koro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

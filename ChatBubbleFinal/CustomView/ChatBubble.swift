@@ -157,7 +157,7 @@ class ChatBubble: UIView {
         }
         
         // 5. Adding new width and height of the chat bubble frame
-        self.frame = CGRect(x: self.frame.minX, y: self.frame.minY, width: viewWidth, height: viewHeight)
+        self.frame = CGRect(x: self.frame.minX, y: self.frame.minY+3, width: viewWidth, height: viewHeight)
         
         // 6. Adding the resizable image view to give it bubble like shape
         let bubbleImageFileName = data.type == .mine ? "bubbleMine" : "bubbleSomeone"
