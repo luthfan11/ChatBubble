@@ -9,14 +9,14 @@
 import UIKit
 
 class ChatBubble: UIView {
-
+    
     /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
+     // Only override drawRect: if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func drawRect(rect: CGRect) {
+     // Drawing code
+     }
+     */
     // Properties
     var imageViewChat: UIImageView?
     var imageViewBG: UIImageView?
@@ -26,13 +26,13 @@ class ChatBubble: UIView {
     var labelTimeSend: UILabel?
     
     /**
-    Initializes a chat bubble view
-    
-    :param: data   ChatBubble Data
-    :param: startY origin.y of the chat bubble frame in parent view
-    
-    :returns: Chat Bubble
-    */
+     Initializes a chat bubble view
+     
+     :param: data   ChatBubble Data
+     :param: startY origin.y of the chat bubble frame in parent view
+     
+     :returns: Chat Bubble
+     */
     init(data: ChatBubbleData, startY: CGFloat){
         
         // 1. Initializing parent view with calculated frame
@@ -78,10 +78,25 @@ class ChatBubble: UIView {
             labelChatText?.text = data.text
             labelChatText?.sizeToFit() // Getting fullsize of it
             self.addSubview(labelChatText!)
-        
+            
+            if let imageView = imageViewChat {
+                print("status imagechat")
+                imageDoubleTick = UIImageView(frame: CGRect(x: max(imageViewChat!.frame.maxX, labelChatText!.frame.maxX) + padding - 60, y: labelChatText!.frame.maxY + padding/2 + 2, width: 10 , height: 10))
+                imageDoubleTick?.image = UIImage(named: "DoubleTick.png")
+                self.addSubview(imageDoubleTick!)
+                
+                // set label time on viewChat
+                labelTimeSend = UILabel(frame: CGRect(x: max(imageViewChat!.frame.maxX, labelChatText!.frame.maxX) + padding - 45, y: labelChatText!.frame.maxY + padding/2, width: self.frame.width - 2 * startX , height: 5))
+                labelTimeSend?.textAlignment = data.type == .mine ? .right : .left
+                labelTimeSend?.font = UIFont.systemFont(ofSize: 10)
+                labelTimeSend?.numberOfLines = 0 // Making it multiline
+                labelTimeSend?.text = "10:19"
+                labelTimeSend?.sizeToFit() // Getting fullsize of it
+                self.addSubview(labelTimeSend!)            }
             // setting for more 1(one) line
-            if labelChatText!.frame.maxY != 22.0 {
+            else if labelChatText!.frame.maxY != 22.0 {
                 //set double tick
+                print("status !22.0")
                 imageDoubleTick = UIImageView(frame: CGRect(x: labelChatText!.frame.width + labelChatText!.frame.minX + padding - 60, y: labelChatText!.frame.maxY + padding/2 + 2, width: 10 , height: 10))
                 imageDoubleTick?.image = UIImage(named: "DoubleTick.png")
                 self.addSubview(imageDoubleTick!)
@@ -94,9 +109,11 @@ class ChatBubble: UIView {
                 labelTimeSend?.text = "10:19"
                 labelTimeSend?.sizeToFit() // Getting fullsize of it
                 self.addSubview(labelTimeSend!)
-            // setting for 1(one) line
-            } else {
+                // setting for 1(one) line
+            }
+            else {
                 //set double tick
+                print("status else")
                 imageDoubleTick = UIImageView(frame: CGRect(x: labelChatText!.frame.width + labelChatText!.frame.minX + padding - 5, y: labelChatText!.frame.maxY - 12, width: 10 , height: 10))
                 imageDoubleTick?.image = UIImage(named: "DoubleTick.png")
                 self.addSubview(imageDoubleTick!)
@@ -112,18 +129,20 @@ class ChatBubble: UIView {
             }
             
         }
+        
         // 4. Calculation of new width and height of the chat bubble view
         var viewHeight: CGFloat = 0.0
         var viewWidth: CGFloat = 0.0
         if let imageView = imageViewChat {
             // Height calculation of the parent view depending upon the image view and text label
             viewWidth = max(imageViewChat!.frame.maxX, labelChatText!.frame.maxX) + padding
-            if (data.text?.characters.count)! > 30 {
-                viewHeight = max(imageViewChat!.frame.maxY, labelChatText!.frame.maxY) + padding + 20
-            }else {
-                viewHeight = max(imageViewChat!.frame.maxY, labelChatText!.frame.maxY) + padding
-            }
-            
+            viewHeight = max(imageViewChat!.frame.maxY, labelChatText!.frame.maxY) + padding + 20
+//            if (data.text?.characters.count)! > 30 {
+//                viewHeight = max(imageViewChat!.frame.maxY, labelChatText!.frame.maxY) + padding + 20
+//            }else {
+//                viewHeight = max(imageViewChat!.frame.maxY, labelChatText!.frame.maxY) + padding
+//            }
+            print("status in")
             
         } else {
             if labelChatText!.frame.maxY != 22.0 {
@@ -157,7 +176,7 @@ class ChatBubble: UIView {
         var bgImageNewWidth =  imageViewBG!.frame.width + CGFloat(12.0)
         var bgImageNewHeight =  imageViewBG!.frame.height + CGFloat(6.0)
         imageViewBG?.frame = CGRect(x: bgImageNewX, y: 0.0, width: bgImageNewWidth, height: bgImageNewHeight)
-
+        
         
         // Keepping a minimum distance from the edge of the screen
         var newStartX:CGFloat = 0.0
@@ -173,7 +192,7 @@ class ChatBubble: UIView {
         self.frame = CGRect(x: newStartX, y: self.frame.minY, width: frame.width, height: frame.height)
         
     }
-
+    
     // 6. View persistance support
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -187,5 +206,5 @@ class ChatBubble: UIView {
         let startX: CGFloat = type == .mine ? ScreenSize.SCREEN_WIDTH * (CGFloat(1.0) - paddingFactor) - maxWidth : sidePadding
         return CGRect(x: startX, y: startY, width: maxWidth, height: 5) // 5 is the primary height before drawing starts
     }
-
+    
 }
