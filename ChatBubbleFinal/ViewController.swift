@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     @IBOutlet weak var buttomLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
-    
+    @IBOutlet weak var viewAttachments: UIImageView!
     
     var selectedImage : UIImage?
     var lastChatBubbleY: CGFloat = 10.0
@@ -33,7 +33,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         imagePicker.allowsEditing = false //2
         imagePicker.sourceType = .photoLibrary //3
         sendButton.isEnabled = false
-        
+        viewAttachments.accessibilityElementsHidden = false
         
         let chatBubbleData1 = ChatBubbleData(text: "Hey !!!", image:UIImage(named: "chatImage1.jpg"), date: Date(), type: .mine)
         addChatBubble(chatBubbleData1)
